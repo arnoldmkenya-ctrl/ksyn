@@ -52,11 +52,9 @@ class UnitInputPort(
         }
     }
 
-    fun setValueInternal(partNum: Int, value: Double) {
-        // TODO super.setValueInternal(partNum, value)
-        if (partNum in setValues.indices) {
-            setValues[partNum] = value
-        }
+    override fun setValueInternal(partNum: Int, value: Double) {
+        super.setValueInternal(partNum, value)
+        setValues[partNum] = value
     }
 
     // ==========================================

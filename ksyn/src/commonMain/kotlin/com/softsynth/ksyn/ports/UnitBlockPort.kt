@@ -27,7 +27,7 @@ open class UnitBlockPort(
     }
 
     override var value: Double
-        set(value: Double)  { setValue(0, value) }
+        set(value: Double)  { setValueInternal(0, value) }
         get() = get(0)
 
     fun getValue(partNum: Int): Double = parts[partNum].getValue()
@@ -38,8 +38,12 @@ open class UnitBlockPort(
 
     open fun get(partNum: Int): Double = parts[partNum].get()
 
-    internal fun setValue(partNum: Int, value: Double) {
+    open fun setValueInternal(partNum: Int, value: Double) {
         parts[partNum].setValue(value)
+    }
+
+    fun setValueInternal(value: Double) {
+        setValueInternal(0, value)
     }
 
     fun isConnected(): Boolean = isConnected(0)

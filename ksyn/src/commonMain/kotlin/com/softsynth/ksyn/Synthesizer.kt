@@ -15,7 +15,6 @@
  */
 package com.softsynth.ksyn
 
-import com.softsynth.ksyn.shared.time.ScheduledCommand
 import com.softsynth.ksyn.shared.time.TimeStamp
 import com.softsynth.ksyn.unitgen.UnitGenerator
 
