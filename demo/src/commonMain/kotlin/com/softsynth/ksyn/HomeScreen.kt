@@ -19,8 +19,11 @@ package com.softsynth.ksyn
 // IMPORTS: These look like Android, but they are the Multiplatform versions
 // provided by the JetBrains Compose Multiplatform Gradle plugin.
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -40,17 +43,23 @@ class HomeScreen : Screen {
         // It works on iOS, Web, Desktop, and Android equally.
         val navigator = LocalNavigator.currentOrThrow
 
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Button(
-                onClick = {
-                    // Push the new screen onto the stack
-                    navigator.push(TestAudioBridge())
-                }
+        Scaffold { innerPadding ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
             ) {
-                Text("Go to Audio Bridge")
+                Button(
+                    onClick = {
+                        // Push the new screen onto the stack
+                        navigator.push(TestAudioBridge())
+                    }
+                ) {
+                    Text("Test Audio Bridge")
+                }
+                Button(
+                    onClick = { navigator.push(PlaySawtooth()) }
+                ) { Text("Play Sawtooth") }
             }
         }
     }

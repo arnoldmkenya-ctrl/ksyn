@@ -138,6 +138,8 @@ interface Synthesizer {
     @Throws(InterruptedException::class)
     suspend fun sleepFor(duration: Double)
 
+    suspend fun renderBuffer(): DoubleArray
+
     /** Is JSyn running in real-time mode?  */
     /**
      * If set true then the synthesizer will generate audio in real-time. Set it true for live

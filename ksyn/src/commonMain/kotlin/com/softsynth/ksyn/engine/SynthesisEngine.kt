@@ -424,6 +424,11 @@ class SynthesisEngine() : Synthesizer {
         sleepUntil(currentTime + duration)
     }
 
+    override suspend fun renderBuffer(): DoubleArray {
+        generateNextBuffer()
+        return getInterleavedBuffer()
+    }
+
     fun printConnections() {
         if (isPullDataEnabled) {
             runningUnitList.forEach { it.printConnections() }

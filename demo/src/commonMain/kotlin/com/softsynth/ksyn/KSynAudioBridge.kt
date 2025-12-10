@@ -16,5 +16,53 @@
 
 package com.softsynth.ksyn
 
-class KSynAudioBridge {
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+
+class KSynAudioBridge(val synth: Synthesizer): AudioStreamManager() {
+    val STEREO_CHANNELS = 2
+
+    override suspend fun onAudioTask(scope: CoroutineScope) {
+        val framesPerBurst = 64 // TODO right size?
+        val stereoBuffer = FloatArray(framesPerBurst * STEREO_CHANNELS)
+
+        // Set time to sleep based on the audio burst size.
+        val burstMillis = (1000 * synth.framePeriod).toLong()
+        synth.start()
+        try {
+            while (isActive()) { // Check isActive for cooperative cancellation
+                val stereoBufferDouble = synth.renderBuffer()
+                for (i in 0 until stereoBuffer.size) {
+                    stereoBuffer[i] = stereoBufferDouble[i].toFloat()
+                }
+                var framesLeft = stereoBuffer.size / STEREO_CHANNELS
+                var offset = 0
+                while (framesLeft > 0 && isActive()) {
+                    val frameCount = audioBridge.write(stereoBuffer, offset, framesLeft)
+                    if (frameCount < 0) {
+                        // Handle error from audioBridge.write, e.g., stream closed
+                        println("AudioBridge write error: $frameCount")
+                        scope.cancel("AudioBridge write error") // Cancel the coroutine
+                        break
+                    }
+                    offset += frameCount
+                    framesLeft -= frameCount
+                    if (framesLeft > 0 && scope.isActive) {
+                        // Wait long enough for one burst of room to be available.
+                        delay(burstMillis)
+                    }
+                }
+            }
+        } catch (e: CancellationException) {
+            println("Audio stream coroutine cancelled.")
+            // Perform any cleanup specific to this coroutine if needed
+        } finally {
+            println("Audio stream coroutine finishing.")
+            synth.stop()
+        }
+    }
+
 }

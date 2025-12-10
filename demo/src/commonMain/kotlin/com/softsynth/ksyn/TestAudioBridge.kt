@@ -50,7 +50,6 @@ import kotlin.math.PI
 import kotlin.math.min
 import kotlin.math.sin
 
-
 class SineWaveGenerator(private var frequency: Float,
                         private val amplitude: Float = 1.0f) {
 
