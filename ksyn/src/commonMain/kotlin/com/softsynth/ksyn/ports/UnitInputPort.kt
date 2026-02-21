@@ -13,7 +13,7 @@ import com.softsynth.ksyn.unitgen.UnitGenerator
  *
  * Converted to Kotlin Multiplatform.
  */
-class UnitInputPort(
+open class UnitInputPort(
     numParts: Int = 1,
     name: String = "Input",
     defaultValue: AudioSample = KSyn.ZERO
