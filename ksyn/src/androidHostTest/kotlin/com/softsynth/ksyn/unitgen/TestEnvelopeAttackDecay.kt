@@ -32,6 +32,17 @@ class TestEnvelopeAttackDecay : TestUnitGate() {
     }
 
     @Test
+    fun testPortsRegistered() {
+        val env = EnvelopeAttackDecay()
+        val ports = env.getPorts()
+        assertTrue(ports.contains(env.attack), "Attack port should be registered")
+        assertTrue(ports.contains(env.decay), "Decay port should be registered")
+        assertTrue(ports.contains(env.amplitude), "Amplitude port should be registered")
+        assertTrue(ports.contains(env.input), "Input port should be registered")
+        assertTrue(ports.contains(env.output), "Output port should be registered")
+    }
+
+    @Test
     fun testOnOff() {
         val envelope = EnvelopeAttackDecay()
         synthesisEngine.add(envelope)

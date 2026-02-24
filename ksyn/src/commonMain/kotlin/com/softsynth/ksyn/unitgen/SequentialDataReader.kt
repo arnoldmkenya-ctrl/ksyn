@@ -26,11 +26,8 @@ import com.softsynth.ksyn.ports.UnitOutputPort
  * @author Phil Burk (C) 2009 Mobileer Inc
  */
 abstract class SequentialDataReader : UnitGenerator() {
-    @JvmField
     var dataQueue: UnitDataQueuePort
-    @JvmField
     var amplitude: UnitInputPort
-    @JvmField
     var output: UnitOutputPort? = null
 
     init {

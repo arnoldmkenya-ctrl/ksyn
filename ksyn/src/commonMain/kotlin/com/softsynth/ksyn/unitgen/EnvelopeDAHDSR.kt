@@ -59,6 +59,12 @@ class EnvelopeDAHDSR : UnitGate() {
 
     init {
         addPort(delay)
+        addPort(attack)
+        addPort(hold)
+        addPort(decay)
+        addPort(sustain)
+        addPort(release)
+        addPort(amplitude)
         delay.setup(0.0, 0.0, 2.0)
         delay.set(0, 0.0f)
         attack.set(0, 0.01f)
@@ -70,6 +76,7 @@ class EnvelopeDAHDSR : UnitGate() {
     }
 
     override fun generate() {
+        // println("EnvelopeDAHDSR: generate() called. state=$state")
         val sustains = sustain.getValues()
         val amplitudes = amplitude.getValues()
         val outputs = output.getValues()

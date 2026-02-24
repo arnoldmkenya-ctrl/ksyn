@@ -41,6 +41,21 @@ class TestEnvelopeDAHDSR : TestUnitGate() {
     }
 
     @Test
+    fun testPortsRegistered() {
+        val env = EnvelopeDAHDSR()
+        val ports = env.getPorts()
+        assertTrue(ports.contains(env.delay), "Delay port should be registered")
+        assertTrue(ports.contains(env.attack), "Attack port should be registered")
+        assertTrue(ports.contains(env.hold), "Hold port should be registered")
+        assertTrue(ports.contains(env.decay), "Decay port should be registered")
+        assertTrue(ports.contains(env.sustain), "Sustain port should be registered")
+        assertTrue(ports.contains(env.release), "Release port should be registered")
+        assertTrue(ports.contains(env.amplitude), "Amplitude port should be registered")
+        assertTrue(ports.contains(env.input), "Input port should be registered")
+        assertTrue(ports.contains(env.output), "Output port should be registered")
+    }
+
+    @Test
     fun testStages() {
         val ramp = checkToSustain()
 

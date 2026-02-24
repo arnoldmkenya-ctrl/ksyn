@@ -1,9 +1,10 @@
 package com.softsynth.ksyn
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -52,16 +53,15 @@ fun PortFader(
     var sliderPosition by remember { mutableFloatStateOf(initialSliderValue.coerceIn(0.0f, 1.0f)) }
     var currentValue by remember { mutableFloatStateOf(initialValue) }
 
-    Column(modifier = modifier.padding(8.dp)) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(text = "$name: ")
-            // Format to 2 decimal places for cleaner display
-            val displayValue = kotlin.math.round(currentValue * 100f) / 100f
-            Text(text = displayValue.toString())
-        }
+    Row(
+        modifier = modifier.padding(vertical = 0.dp, horizontal = 8.dp).fillMaxWidth().height(28.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = "$name:",
+            modifier = Modifier.width(120.dp),
+            style = androidx.compose.material3.MaterialTheme.typography.bodySmall
+        )
 
         Slider(
             value = sliderPosition,
@@ -79,7 +79,15 @@ fun PortFader(
                 currentValue = newValue
                 port.set(newValue)
             },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.weight(1f).padding(horizontal = 8.dp)
+        )
+
+        // Format to 2 decimal places for cleaner display
+        val displayValue = kotlin.math.round(currentValue * 100f) / 100f
+        Text(
+            text = displayValue.toString(),
+            modifier = Modifier.width(40.dp),
+            style = androidx.compose.material3.MaterialTheme.typography.bodySmall
         )
     }
 }

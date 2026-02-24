@@ -275,7 +275,7 @@ class DualOscillatorSynthVoice : Circuit(), UnitVoice {
         }
     }
 
-    private object MyVoiceDescription : VoiceDescription("com.softsynth.ksyn.instruments.DualOscillatorSynthVoice", presetNames) {
+    private object MyVoiceDescription : VoiceDescription("DualOscillatorSynthVoice", presetNames) {
         override val voiceClassName: String
             get() = "com.softsynth.ksyn.instruments.DualOscillatorSynthVoice"
             

@@ -50,13 +50,8 @@ class HomeScreen : Screen {
                     .padding(innerPadding)
             ) {
                 Button(
-                    onClick = {
-                        // Push the new screen onto the stack
-                        navigator.push(TestAudioBridge())
-                    }
-                ) {
-                    Text("Test Audio Bridge")
-                }
+                    onClick = { navigator.push(TestAudioBridge()) }
+                ) { Text("Test Audio Bridge") }
                 Button(
                     onClick = { navigator.push(PlaySawtooth()) }
                 ) { Text("Play Sawtooth") }
@@ -67,6 +62,9 @@ class HomeScreen : Screen {
                 Button(
                     onClick = { navigator.push(FilterLab()) }
                 ) { Text("Filter Lab") }
+                Button(
+                    onClick = { navigator.push(KSynInstrumentsScreen()) }
+                ) { Text("Instruments Library") }
             }
         }
     }
