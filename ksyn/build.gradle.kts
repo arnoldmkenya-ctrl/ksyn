@@ -89,6 +89,7 @@ kotlin {
                 implementation(libs.kotlin.stdlib)
                 // Add KMP dependencies here
                 implementation(libs.kotlinx.coroutines.core)
+                implementation("org.jetbrains.kotlinx:kotlinx-io-core:0.7.0")
             }
         }
 
