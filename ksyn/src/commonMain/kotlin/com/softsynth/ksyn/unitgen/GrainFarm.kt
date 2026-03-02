@@ -40,7 +40,7 @@ import kotlin.math.pow
  * @see GrainSourceSine
  * @see RaisedCosineEnvelope
  */
-class GrainFarm : UnitGenerator(), UnitSource {
+open class GrainFarm : UnitGenerator(), UnitSource {
     /** A scaler for playback rate. Nominally 1.0. */
     val rate = UnitInputPort("Rate")
     val rateRange = UnitInputPort("RateRange")
@@ -147,7 +147,7 @@ class GrainFarm : UnitGenerator(), UnitSource {
         }
     }
 
-    fun setupGrain(grain: Grain, i: Int) {
+    open fun setupGrain(grain: Grain, i: Int) {
         val temp = rate.getValues()[i].toDouble() * calculateOctaveScaler(rateRange.getValues()[i].toDouble())
         grain.setRate(temp)
 
@@ -158,7 +158,7 @@ class GrainFarm : UnitGenerator(), UnitSource {
         grain.amplitude = (base - offset).toFloat()
     }
 
-    fun allocate(numGrains: Int) {
+    open fun allocate(numGrains: Int) {
         val grainArray = Array(numGrains) {
             Grain(GrainSourceSine(), RaisedCosineEnvelope())
         }
