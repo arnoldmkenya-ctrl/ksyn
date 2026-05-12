@@ -24,6 +24,8 @@ import kotlin.math.sin
 
 /**
  * A versatile filter described in Hal Chamberlain's "Musical Applications of MicroProcessors".
+ * It is convenient because its frequency and resonance can each be controlled by a single value. The
+ * "output" port of this filter is the "lowPass" output multiplied by the "amplitude"
  *
  * @author Phil Burk (C) 2009 Mobileer Inc
  * @see FilterLowPass
@@ -37,10 +39,10 @@ class FilterStateVariable : TunableFilter() {
     val bandPass = UnitOutputPort("BandPass")
     val highPass = UnitOutputPort("HighPass")
 
-    private var freqInternal: Float = 0f
-    private var previousFrequency: Double = Double.MAX_VALUE
-    private var lowPassValue: Float = 0f
-    private var bandPassValue: Float = 0f
+    private var freqInternal: Double = 0.0
+    private var previousFrequency: Float = Float.MAX_VALUE
+    private var lowPassValue: Double = 0.0
+    private var bandPassValue: Double = 0.0
 
     init {
         frequency.set(440.0)
@@ -61,10 +63,10 @@ class FilterStateVariable : TunableFilter() {
         val highs = highPass.getValues()
         val bands = bandPass.getValues()
 
-        val newFreq = frequencies[0].toDouble()
+        val newFreq = frequencies[0]
         if (newFreq != previousFrequency) {
             previousFrequency = newFreq
-            freqInternal = (2.0 * sin(PI * newFreq * framePeriod)).toFloat()
+            freqInternal = 2.0 * sin(PI * newFreq.toDouble() * framePeriod)
         }
 
         // Local variables for loop
@@ -75,17 +77,17 @@ class FilterStateVariable : TunableFilter() {
         for (i in 0..<Synthesizer.FRAMES_PER_BLOCK) {
             lp = (fi * bp) + lp
             // Clip between -1 and +1
-            if (lp < -1.0f) lp = -1.0f
-            else if (lp > 1.0f) lp = 1.0f
-            lows[i] = lp
+            if (lp < -1.0) lp = -1.0
+            else if (lp > 1.0) lp = 1.0
+            lows[i] = lp.toFloat()
 
-            outputs[i] = lp * amplitudes[i]
+            outputs[i] = (lp * amplitudes[i]).toFloat()
 
             val hp = inputs[i] - (reses[i] * bp) - lp
-            highs[i] = hp
+            highs[i] = hp.toFloat()
 
             bp = (fi * hp) + bp
-            bands[i] = bp
+            bands[i] = bp.toFloat()
         }
 
         lowPassValue = lp
