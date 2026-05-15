@@ -11,7 +11,7 @@ KSyn is provided under the free and open **Apache Open Source License**.
 
 KSyn is a fairly direct port of the [JSyn](https://github.com/philburk/jsyn) library, which was written in Java. We ported JSyn to Kotlin because:
 1. Java Applets can no longer run easily in the browser,
-2. Kotlin is widely viewed as a more modern, powerful, portable and language,
-3. Code written using Kotlin/Compose multiplatform can run on Android, Desktop, iOS, and the web.
+2. Kotlin is widely viewed as a more modern, powerful, and portable language,
+3. Code written using Kotlin/Compose multiplatform can run on Android, Desktop, iOS, and the Web.
 
 ## [Click here for Documentation in the docs folder](/docs/README.md).
