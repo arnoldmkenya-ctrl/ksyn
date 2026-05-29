@@ -1,4 +1,4 @@
-# KSyn - Audio Synthesis Library for Kotlin
+ # KSyn - Audio Synthesis Library for Kotlin
 
 KSyn is a modular audio synthesis library written in Kotlin Multiplatform.
 It provides unit generators such as oscillators, filters, envelopes and many other functions.
